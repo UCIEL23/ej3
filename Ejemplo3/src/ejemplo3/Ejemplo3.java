@@ -1,34 +1,80 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package ejemplo3;
+package proyectoherencia3;
 
-import java.util.Scanner;
+public class EmpleadoBaseMasComision {
+    private final String primerNombre;
+    private final String apellidoPaterno;
+    private final String numeroSeguroSocial;
+    private double ventasBrutas;
+    private double tarifaComision;
+    private double salarioBase;
 
-/**
- *
- * @author marti
- */
-public class Ejemplo3 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        double t,a,e,d,p; int c; Scanner x = new Scanner(System.in);
-       System.out.println("Tasa anual: "); t =x.nextDouble();
-       System.out.println("Habitantes: "); d =x.nextDouble();
-       
-        c=0;
-        System.out.println("Numero de años: "); e =x.nextDouble();
-        a=d;
-        while (c>=0 && c<=e){
-            p=d*t;
-            System.out.println("La poblacion del año "+c +" es de :  "+a +" billones de habitantes");
-            a=a+p;
-            
-            c=c+1;}
+    public EmpleadoBaseMasComision(String primerNombre, String apellidoPaterno, String numeroSeguroSocial, double ventasBrutas, double tarifaComision, double salarioBase) {
+        if(ventasBrutas<0.0)
+        throw new IllegalArgumentException("Las ventas brutas deben de ser >= a 0.0 ");
+        if(tarifaComision <= 0.0 || tarifaComision >= 1.0)
+        throw new IllegalArgumentException("La tarifa de comision debe ser > 0.0 y < 1.0 ");
+        if (salarioBase < 0.0)
+        throw new IllegalArgumentException("El salario base debe ser >= 0.0 ");
+        
+        this.primerNombre = primerNombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.numeroSeguroSocial = numeroSeguroSocial;
+        this.ventasBrutas = ventasBrutas;
+        this.tarifaComision = tarifaComision;
+        this.salarioBase = salarioBase;
     }
     
+    public String obtenerPrimerNombre(){
+        return primerNombre;
+    }
+    
+    public String obtenerApellidoPaterno(){
+        return apellidoPaterno;
+    }
+    
+    public String obtenerNumeroSeguroSocial(){
+        return numeroSeguroSocial;
+    }
+    
+    public void establecerVentasBrutas(double ventasBrutas){
+        if(ventasBrutas < 0.0)
+            throw new IllegalArgumentException("Las ventas brutas deben de ser >= a 0.0 ");
+        this.ventasBrutas=ventasBrutas;
+    }
+    
+    public double obtenerVentasBrutas(){
+        return ventasBrutas;
+    }
+    
+    public void establecerTarifaComision(double tarifaComision){
+        if(tarifaComision <= 0.0 || tarifaComision >= 1.0)
+            throw new IllegalArgumentException("La tarifa de comision debe ser > 0.0 y < 1.0 ");
+        this.tarifaComision=tarifaComision;
+    }
+    
+    public double obtenerTarifaComison(){
+        return tarifaComision;
+    }
+    
+    public void establecerSalarioBase(double salarioBase){
+        if (salarioBase < 0.0)
+            throw new IllegalArgumentException("El salario base debe ser >= 0.0 ");
+        this.salarioBase=salarioBase;
+    }
+    
+    public double obtenerSalarioBase(){
+        return salarioBase;
+    }
+    
+    public double ingresos(){
+        return salarioBase + (tarifaComision * ventasBrutas);
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("%s: %s %s%n%s: %s%n%s: %.2f%n%s: %.2f%n%s: 2f",
+                "empleado por comision con sueldo base", primerNombre, apellidoPaterno,
+                "numero de seguro social", numeroSeguroSocial, "ventas brutas", ventasBrutas,
+                "tarifa de comision", tarifaComision, "salario base", salarioBase);
+    }
 }
